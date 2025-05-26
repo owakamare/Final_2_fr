@@ -1,0 +1,70 @@
+<style>
+  body {
+    height: 100vh;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    background: rgb(255, 255, 255);
+  }
+  #myCanvas {
+    border: 2px solid black;
+  }
+</style>
+
+<link rel="stylesheet" href="https://generativeart.online/css/drawing-app.css">
+<script src="https://cdn.jsdelivr.net/gh/netizenorg/netnet-standard-library/build/nn.min.js"></script>
+
+<body>
+  <canvas id="myCanvas"></canvas>
+</body>
+
+<script>
+  /* global nn*/
+const canvas = document.getElementById('myCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = nn.width / 2;
+canvas.height = 1.414 * canvas.width;
+  
+  let x_idx = 70
+  let y_idx = 40
+  function repeat_anim () {let alph = 
+      ['a','b','c','d','e','f',
+       'g','h','i','j','k','l',
+       'm','n','o','p','q','r',
+        's','t','u','v','w','x',
+        'y','z', ' ', '.',',','-',
+        '?']
+  
+  function rand_letter(x_idx, y_idx, array) {
+  let currentIndex = array.length;
+
+    let randomIndex = Math.floor(Math.random() * currentIndex);
+    
+    ctx.fillStyle = '#000000';
+    ctx.font = `15px old Courier`;
+
+    let letter = array[randomIndex];
+    
+    if ((Math.floor(x_idx) % 5) === 0) {
+      letter = letter.charAt(0).toUpperCase()
+    }
+    ctx.fillText(letter, x_idx, y_idx)
+}
+
+const intervalId = setInterval(() => {rand_letter(x_idx, y_idx, alph);
+        
+                    x_idx += 10.60
+                   if (x_idx > canvas.width - 10) {
+    x_idx = 6;
+  y_idx += 20
+  }
+                   
+if (y_idx % 160 === 0 && x_idx === 6) {x_idx = 70; y_idx += 20}
+             if (y_idx > canvas.height - 40) {
+      clearInterval(intervalId);}}, 100);}
+  
+    repeat_anim()
+  
+
+  
+</script>
