@@ -16,20 +16,10 @@
 
 <body>
   <canvas id="myCanvas"></canvas>
-  <audio id="myAudio" src="swipe.wav" preload="auto"></audio>
-  <script src="your-script.js" defer></script>
 </body>
 
 <script>
   /* global nn*/    
-  const audioContext = new AudioContext();
-      const audioElement = document.getElementById('myAudio');
-    const sourceNode = audioContext.createMediaElementSource(audioElement);
-      const gainNode = audioContext.createGain();
-    gainNode.gain.value = 2; 
-      sourceNode.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-  
                           const canvas   = document.getElementById('myCanvas');
                           const ctx     = 
                         canvas.getContext('2d');
@@ -38,10 +28,9 @@
                           new 
                         Audio('typing_cont.wav');
   
-                      //     const swipe_sound = 
-                      //     new 
-                      //   Audio('swipe.wav');
-                      // swipe_sound.volume = 1.0
+                          const swipe_sound = 
+                          new 
+                        Audio('swipe.wav');
   
                         canvas.width = nn.width / 2;
                         canvas.height = 1.414 * canvas.width;
@@ -50,13 +39,24 @@
                           let x_idx = 70
                           let y_idx = 40
                           let page_idx = 1
+                          
+                          const img = new Image();
+  img.onload = () => {
+  ctx.drawImage(img, ((canvas.width / 2) - (img.width / 2)), ((canvas.height / 2) - (img.height / 2))
+                
+)};
+img.src = 'infinite_monkey.jpg';
+  ctx.fillStyle = '#000000';
+ctx.font = '25px "Courier New", Courier, monospace';
+  ctx.fillText("TYPE: INFINITE HUMAN THEOREM", 0, (canvas.height - 10))
+  
 
-document.addEventListener('keydown', async () => {
-   await audioContext.resume();
+document.addEventListener('keydown', () => {
                           if 
 (!borderAdded) {
   canvas.style.border = '2px solid black';
   borderAdded = true;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   repeat_anim()
     }
   });
@@ -92,24 +92,17 @@ ctx.fillText(page_idx, canvas.width - 13, canvas.height - 13)
     x_idx = 6;
   y_idx += 20
   }
+                                                                  
                    
 if (y_idx % 160 === 0 && x_idx === 6) {x_idx = 70; y_idx += 20}
              if (y_idx > canvas.height - 40) {
       clearInterval(intervalId); type_sound.pause(); x_idx = 70;
     y_idx = 40; page_idx ++; setTimeout(() => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height); audioElement.currentTime = 0; audioElement.play();
-  repeat_anim()}, 800);} 
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  repeat_anim()}, 800); swipe_sound.play()} 
  else 
   type_sound.play()
-}, 50);}
-  
-  
-  audioElement.addEventListener('error', e => {
-  console.error('Audio error:', e);
-});
-audioElement.addEventListener('canplaythrough', () => {
-  console.log('Audio loaded and ready.');
-});
+}, 25);}
 
 
   
