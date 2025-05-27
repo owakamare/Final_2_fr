@@ -1,22 +1,40 @@
-<style>
-  body {
-    height: 100vh;
-    display: grid;
-    align-content: center;
-    justify-content: center;
-    background: rgb(255, 255, 255);
-  }
-  #myCanvas {
-    border: 2px solid black;
-  }
-</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infinite Human</title>
+  
+  <style>
+    html, body {
+  height: 90%;
+  overflow: hidden;
+}
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgb(255, 255, 255);
+      margin: 0; 
+      overflow: hidden
+    }
 
-<link rel="stylesheet" href="https://generativeart.online/css/drawing-app.css">
-<script src="https://cdn.jsdelivr.net/gh/netizenorg/netnet-standard-library/build/nn.min.js"></script>
+    #myCanvas {
+      border: 2px solid black;
+      max-width: 90vw;
+      height: auto;
+      display: block;
+    }
+  </style>
+</head>
 
 <body>
   <canvas id="myCanvas"></canvas>
 </body>
+</html>
+
+<script src="https://cdn.jsdelivr.net/gh/netizenorg/netnet-standard-library/build/nn.min.js"></script>
 
 <script>
   /* global nn*/    
@@ -32,8 +50,9 @@
                           new 
                         Audio('swipe.wav');
   
-                        canvas.width = nn.width / 2;
-                        canvas.height = 1.414 * canvas.width;
+                        canvas.height = window.innerHeight - 50
+                        canvas.width = canvas.height / 1.414
+                      
   
                           let x_idx = 70
                           let y_idx = 40
@@ -47,6 +66,8 @@ function fillCanvasBackground() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
     
+
+window.onload = () => {
 img.onload = () => {
 ctx.drawImage(img, ((canvas.width / 2) - (img.width / 2)), ((canvas.height / 2) - (img.height / 2)))};
 img.src = 'infinite_monkey.jpg';
@@ -55,12 +76,27 @@ ctx.font = '25px "Courier New", Courier, monospace';
 ctx.fillText("INFINITE HUMAN THEOREM", 0, (canvas.height - 30))
 ctx.font = '18px "Courier New", Courier, monospace';
 ctx.fillText("BY: ??? [Tap a key to start writing it]", 0, (canvas.height - 10))
+};
+  
 
+  function resizeCanvas() {
+  canvas.height = window.innerHeight - 50;
+  canvas.width = canvas.height / 1.414;
+}
+
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+  
 document.addEventListener('keydown', () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   swipe_sound.play();
   repeat_anim();
 }, { once: true });
+  
+window.addEventListener('resize', () => {
+  canvas.height = window.innerHeight - 50
+  canvas.width = canvas.height / 1.414
+});
                           
 function repeat_anim () {
                                        let alph =           ['a','b','c','d','e','f',
