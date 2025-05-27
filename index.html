@@ -48,7 +48,7 @@
 img.src = 'infinite_monkey.jpg';
   ctx.fillStyle = '#000000';
 ctx.font = '25px "Courier New", Courier, monospace';
-  ctx.fillText("TYPE: INFINITE HUMAN THEOREM", 0, (canvas.height - 10))
+ctx.fillText("TYPE: INFINITE HUMAN THEOREM", 0, (canvas.height - 10))
   
 
 document.addEventListener('keydown', () => {
@@ -57,9 +57,7 @@ document.addEventListener('keydown', () => {
   canvas.style.border = '2px solid black';
   borderAdded = true;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  repeat_anim()
-    }
-  });
+  repeat_anim()}});
                           
 function repeat_anim () {
                            let alph = ['a','b','c','d','e','f',
@@ -78,32 +76,17 @@ ctx.fillStyle = '#000000';
 ctx.font = '15px "Courier New", Courier, monospace';
 
                             let letter = array[randomIndex];
-                            if ((Math.floor(x_idx) % 5) === 0) {
-                                letter = letter.charAt(0).toUpperCase()}
+if ((Math.floor(x_idx) % 5) === 0) {letter = letter.charAt(0).toUpperCase()}
 ctx.fillText(letter, x_idx, y_idx)
-ctx.fillText(page_idx, canvas.width - 13, canvas.height - 13)
-}
+ctx.fillText("Pg." + page_idx, canvas.width - 60, canvas.height - 15)}
 
                             const intervalId = setInterval(() => {rand_letter(x_idx, y_idx, alph);
-        
-                    x_idx += 10.40
+                                      x_idx += 10.40
                                       
-                   if (x_idx > canvas.width - 10) {
-    x_idx = 6;
-  y_idx += 20
-  }
-                                                                  
-                   
+if (x_idx > canvas.width - 10) {x_idx = 6; y_idx += 20}                   
 if (y_idx % 160 === 0 && x_idx === 6) {x_idx = 70; y_idx += 20}
-             if (y_idx > canvas.height - 40) {
-      clearInterval(intervalId); type_sound.pause(); x_idx = 70;
-    y_idx = 40; page_idx ++; setTimeout(() => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-  repeat_anim()}, 800); swipe_sound.play()} 
- else 
-  type_sound.play()
-}, 25);}
-
-
+if (y_idx > canvas.height - 40) {clearInterval(intervalId); type_sound.pause(); x_idx = 70; y_idx = 40; page_idx ++; setTimeout(() => {
+ctx.clearRect(0, 0, canvas.width, canvas.height); repeat_anim()}, 800); swipe_sound.play()} 
+else type_sound.play()}, 25)}
   
 </script>
