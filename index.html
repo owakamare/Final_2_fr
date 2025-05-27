@@ -7,7 +7,7 @@
     background: rgb(255, 255, 255);
   }
   #myCanvas {
-    border: none;
+    border: 2px solid black;
   }
 </style>
 
@@ -35,58 +35,61 @@
                         canvas.width = nn.width / 2;
                         canvas.height = 1.414 * canvas.width;
   
-                          let borderAdded = false;
                           let x_idx = 70
                           let y_idx = 40
                           let page_idx = 1
-                          
+                          let shade_var = 98
+                          let canvasBgColor = 'hsl(60, 100%, 98%)';
                           const img = new Image();
-  img.onload = () => {
-  ctx.drawImage(img, ((canvas.width / 2) - (img.width / 2)), ((canvas.height / 2) - (img.height / 2))
-                
-)};
-img.src = 'infinite_monkey.jpg';
-  ctx.fillStyle = '#000000';
-ctx.font = '25px "Courier New", Courier, monospace';
-ctx.fillText("TYPE: INFINITE HUMAN THEOREM", 0, (canvas.height - 10))
   
+function fillCanvasBackground() {
+  ctx.fillStyle = canvasBgColor;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+    
+img.onload = () => {
+ctx.drawImage(img, ((canvas.width / 2) - (img.width / 2)), ((canvas.height / 2) - (img.height / 2)))};
+img.src = 'infinite_monkey.jpg';
+ctx.fillStyle = '#000000';
+ctx.font = '25px "Courier New", Courier, monospace';
+ctx.fillText("INFINITE HUMAN THEOREM", 0, (canvas.height - 30))
+ctx.font = '18px "Courier New", Courier, monospace';
+ctx.fillText("BY: ??? [Tap a key to start writing it]", 0, (canvas.height - 10))
 
 document.addEventListener('keydown', () => {
-                          if 
-(!borderAdded) {
-  canvas.style.border = '2px solid black';
-  borderAdded = true;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  repeat_anim()}});
+  swipe_sound.play();
+  repeat_anim();
+}, { once: true });
                           
 function repeat_anim () {
-                           let alph = ['a','b','c','d','e','f',
-                                     'g','h','i','j','k','l',
-                                     'm','n','o','p','q','r',
-                                      's','t','u','v','w','x',
-                                      'y','z', 
-                                      ' ', ' ',' ', ' ', ' ',
-                                      '.',',','-','?', '"', '"']
+                                       let alph =           ['a','b','c','d','e','f',
+                                    'g','h','i','j','k','l',
+                                    'm','n','o','p','q','r',
+                                    's','t','u','v','w','x',
+                                    'y','z', 
+                                    ' ', ' ',' ', ' ', ' ',
+                                    '.',',','-','?', '"', '"']
   
 function rand_letter(x_idx, y_idx, array) {
-                            let currentIndex = array.length;
-                            let randomIndex = Math.floor(Math.random() * currentIndex);
+                                        let currentIndex = array.length;
+                                        let randomIndex = Math.floor(Math.random() *         currentIndex);
     
 ctx.fillStyle = '#000000';
 ctx.font = '15px "Courier New", Courier, monospace';
 
-                            let letter = array[randomIndex];
+                                        let letter = array[randomIndex];
 if ((Math.floor(x_idx) % 5) === 0) {letter = letter.charAt(0).toUpperCase()}
 ctx.fillText(letter, x_idx, y_idx)
 ctx.fillText("Pg." + page_idx, canvas.width - 60, canvas.height - 15)}
 
-                            const intervalId = setInterval(() => {rand_letter(x_idx, y_idx, alph);
-                                      x_idx += 10.40
+                                      const intervalId = setInterval(() => {rand_letter(x_idx, y_idx, alph);
+                                                      x_idx += 10.40
                                       
 if (x_idx > canvas.width - 10) {x_idx = 6; y_idx += 20}                   
 if (y_idx % 160 === 0 && x_idx === 6) {x_idx = 70; y_idx += 20}
 if (y_idx > canvas.height - 40) {clearInterval(intervalId); type_sound.pause(); x_idx = 70; y_idx = 40; page_idx ++; setTimeout(() => {
-ctx.clearRect(0, 0, canvas.width, canvas.height); repeat_anim()}, 800); swipe_sound.play()} 
+ctx.clearRect(0, 0, canvas.width, canvas.height); canvasBgColor = `hsl(60, 100%, ${shade_var}%)`; fillCanvasBackground();shade_var -= 2; repeat_anim()}, 800); swipe_sound.play()} 
 else type_sound.play()}, 25)}
   
 </script>
