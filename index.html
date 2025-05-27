@@ -85,11 +85,17 @@ ctx.fillText("BY: ??? [Tap a key to write your story]", 0, (canvas.height - 10))
 };
 
   
-document.addEventListener('keydown', () => {
+function handleInput() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   swipe_sound.play();
   repeat_anim();
-}, { once: true });
+  
+  document.removeEventListener('keydown', handleInput);
+  document.removeEventListener('touchstart', handleInput);
+}
+
+document.addEventListener('keydown', handleInput, { once: true });
+document.addEventListener('touchstart', handleInput, { once: true });
   
                           
 function repeat_anim () {
