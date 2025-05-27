@@ -68,6 +68,12 @@ function fillCanvasBackground() {
     
 
 window.onload = () => {
+  function resizeCanvas() {
+  canvas.height = window.innerHeight - 50;
+  canvas.width = canvas.height / 1.414;
+}
+  resizeCanvas()
+  
 img.onload = () => {
 ctx.drawImage(img, ((canvas.width / 2) - (img.width / 2)), ((canvas.height / 2) - (img.height / 2)))};
 img.src = 'infinite_monkey.jpg';
@@ -75,17 +81,9 @@ ctx.fillStyle = '#000000';
 ctx.font = '25px "Courier New", Courier, monospace';
 ctx.fillText("INFINITE HUMAN THEOREM", 0, (canvas.height - 30))
 ctx.font = '18px "Courier New", Courier, monospace';
-ctx.fillText("BY: ??? [Tap a key to start writing it]", 0, (canvas.height - 10))
+ctx.fillText("BY: ??? [Tap a key to start writing it]", 0, (canvas.height - 10));
 };
-  
 
-  function resizeCanvas() {
-  canvas.height = window.innerHeight - 50;
-  canvas.width = canvas.height / 1.414;
-}
-
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
   
 document.addEventListener('keydown', () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -93,10 +91,6 @@ document.addEventListener('keydown', () => {
   repeat_anim();
 }, { once: true });
   
-window.addEventListener('resize', () => {
-  canvas.height = window.innerHeight - 50
-  canvas.width = canvas.height / 1.414
-});
                           
 function repeat_anim () {
                                        let alph =           ['a','b','c','d','e','f',
